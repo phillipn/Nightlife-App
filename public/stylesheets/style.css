@@ -4,5 +4,25 @@ body {
 }
 
 a {
+  display: inline-block;
   color: #00B7FF;
+}
+
+img {
+  display: inline-block;
+  float: left;
+}
+.glyphicon {
+  color: #e6b800;
+}
+.circle {
+  border: 2px solid black;
+  position: relative;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+.circle > span {
+  position: relative;
+  top: 25%;
 }

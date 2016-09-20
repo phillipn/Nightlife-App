@@ -1,6 +1,30 @@
 <navigation></navigation>
-<div class="container">
-</div>
+  <div class="container">
+    <div class='row'>
+      <div class='col-xs-12 text-center'>
+        <div role="alert" ng-show="vm.message" class="alert alert-danger">{{ vm.message }}</div>
+        <h1>Where you at bro?</h1>
+        <form class= "form-group form-inline" ng-submit="vm.onSubmit()" accept-charset="utf-8">
+          <input class="form-control" placeholder="Enter City" type="text" ng-model="vm.formData">
+          <input class="form-control btn btn-default" type="submit" value="Search">
+        </form>
+        <div role="alert" ng-show="vm.loading">{{ vm.loading }}</div>
+        <div class="col-xs-12 col-md-offset-2 col-md-8 list-group-item" ng-repeat="business in vm.data.locations.businesses">
+          <img src="{{ business.image_url }}" class='.img-thumbnail'> 
+          <h4>                                                         
+            <a href="{{ business.mobile_url }}" target="_blank">{{ business.name }}</a>
+            <small rating-stars rating="business.rating"></small> 
+          </h4>  
+          <p> Number of Reviews: {{ business.review_count }} </p>
+          <p> {{ business.location.address | formatDistance }} {{ business.location.city }} {{ business.location.state_code }}</p>  
+          <button class='btn btn-success' ng-click="vm.going(business.name)">I'm going!</button>  
+          <div class='circle'> 
+            <span>{{ business.peopleGoing }}</span>
+          </div>                                  
+        </div>                                                                  
+    </div>
+    </div>
+  </div>
 <footer-generic></footer-generic>
 
 
