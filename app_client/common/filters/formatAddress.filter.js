@@ -2,13 +2,13 @@
 
   angular
     .module('nightlifeApp')
-    .filter('formatDistance', formatDistance);
+    .filter('formatAddress', formatAddress);
 
   var _isNumeric = function (n) {
     !!parseFloat(n);
   };
 
-  function formatDistance () {
+  function formatAddress () {
     return function (addressArray) {
       if(!addressArray || addressArray.length === 0){
         return "";

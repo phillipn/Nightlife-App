@@ -11,18 +11,43 @@ a {
 img {
   display: inline-block;
   float: left;
+  top: 25px;
+  position: relative;
 }
 .glyphicon {
   color: #e6b800;
 }
 .circle {
   border: 2px solid black;
-  position: relative;
   border-radius: 50%;
   width: 40px;
   height: 40px;
+  margin: 0 auto;
+  top: 5px;
+  position: relative;
+  margin-bottom: 10px
 }
 .circle > span {
   position: relative;
   top: 25%;
+}
+
+#banner {
+  text-align: center;
+}
+.form-group {
+  margin: 30px 0px;
+}
+footer {
+  margin-top: 50px;
+  padding: 40px;
+  background-color: #F8F8F8;
+  border-color: #e7e7e7;
+}
+@media screen and (max-width: 430px){
+  img {
+    top: 0px;
+    float: none;
+    width: 75%;
+  }
 }

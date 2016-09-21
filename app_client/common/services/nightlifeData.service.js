@@ -8,8 +8,8 @@
     var locationsByCity = function (city) {
       return $http.get('/api/locations?city=' + city);
     }
-    var goingToLocation = function(locName) {
-      return $http.post('/api/locations/' + locName);
+    var goingToLocation = function(location) {
+      return $http.post('/api/locations/', location);
     }
     
     return {

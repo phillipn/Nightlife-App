@@ -3,10 +3,15 @@
     .controller('listingCtrl', listingCtrl);
 
   function listingCtrl(nightlifeData){
-    var vm = this;
-    vm.bar = 0;
+    var vm = this;   
+    
+    vm.pageHeader = {
+      title: "Nightlife",
+      strapline: "Where you at bro?"
+    }
     
     vm.onSubmit = function(){
+      vm.message = '';
       if(!vm.formData){
         vm.message = "You need to enter an city mang.";
         return false;
@@ -16,28 +21,26 @@
       
       nightlifeData.locationsByCity(vm.formData)
         .success(function (data) {
-          data.businesses.forEach(function(item, index){
-            if(!item.peopleGoing){
-              item.peopleGoing = 0;
-            }
-          })
-            vm.data = { locations: data };
+          vm.loading = '';
+          vm.businesses = data;
+          console.log(data);
         })
         .error(function (data) {
-          vm.message= "API error...";
+          vm.message = "No spots found in this location";
+          vm.loading = '';
         });
+        return false;
     }
     
     vm.going = function(bar){
+      bar.peopleGoing = bar.peopleGoing + 1;
+      bar.disable = true;
       nightlifeData.goingToLocation(bar)
         .success(function (data) {
-          console.log(data);
-          data.locations.peopleGoing += 1;
         })
         .error(function (err) {
           vm.message= err;
-        });
-      
+        }); 
       return false;
     }
   }
