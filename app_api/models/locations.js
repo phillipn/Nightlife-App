@@ -13,7 +13,7 @@ var locationSchema = new mongoose.Schema({
   review_count: Number,
   image_url: String,
   mobile_url: String,
-  peopleGoing: Number,
+  peopleGoing: [String],
   location: [addressSchema]
 });
 

@@ -12,6 +12,8 @@ img {
   display: inline-block;
   float: left;
   top: 25px;
+  height: 100px;
+  width: 100px;
   position: relative;
 }
 .glyphicon {
@@ -44,10 +46,17 @@ footer {
   background-color: #F8F8F8;
   border-color: #e7e7e7;
 }
-@media screen and (max-width: 430px){
-  img {
+@media screen and (max-width: 540px){
+  .image {
     top: 0px;
-    float: none;
-    width: 75%;
+    float: none !important;
+    width: 100% !important;
+  }
+  img {
+    float: none !important;
+    top: 0px;
+  }
+  .content {
+    width: 100%;
   }
 }

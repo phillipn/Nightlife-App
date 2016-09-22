@@ -2,7 +2,7 @@
  
   angular
     .module('nightlifeApp')
-  .filter('notNull', notNull);
+    .filter('notNull', notNull);
   
   function notNull(){
     return function(value){

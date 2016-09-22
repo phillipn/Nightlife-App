@@ -4,20 +4,20 @@
     .module('nightlifeApp')
     .controller('navigationCtrl', navigationCtrl);
 
-  navigationCtrl.$inject = ['$location']; // 'authentication'
-  function navigationCtrl($location) {
+  function navigationCtrl($location, authentication) {
     var vm = this;
 
     vm.currentPath = $location.path();
 
-    // vm.isLoggedIn = authentication.isLoggedIn();
+    vm.isLoggedIn = authentication.isLoggedIn();
 
-    // vm.currentUser = authentication.currentUser();
+    vm.currentUser = authentication.currentUser();
 
-   // .logout = function() {
-   // authentication.logout();
-   // $location.path('/');
-   // 
+    vm.logout = function() {
+      authentication.logout();
+      $location.search('search', null);
+      $location.path('/login');
+    };
 
   }
 })();
