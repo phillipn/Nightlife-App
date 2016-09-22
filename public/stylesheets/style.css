@@ -2,19 +2,22 @@ body {
   padding-top: 70px; 
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
-
 a {
   display: inline-block;
   color: #00B7FF;
 }
-
-img {
+.list_pics {
   display: inline-block;
   float: left;
   top: 25px;
   height: 100px;
   width: 100px;
   position: relative;
+}
+#aboutPic {
+  width: 100%;
+  height: auto;
+  margin-top: 20px;
 }
 .glyphicon {
   color: #e6b800;
@@ -33,7 +36,6 @@ img {
   position: relative;
   top: 25%;
 }
-
 #banner {
   text-align: center;
 }
