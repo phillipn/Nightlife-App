@@ -7,6 +7,8 @@
     
     vm.isLoggedIn = authentication.isLoggedIn();
     
+    vm.currentUser = authentication.currentUser();
+    
     vm.currentPath = $location.path();
     
     vm.pageHeader = {
@@ -24,17 +26,25 @@
       
       nightlifeData.locationsByCity(vm.formData)
         .success(function (data) {
+          var i;
           vm.loading = '';
           if(authentication.currentUser()){
             data.forEach(function(bar){
-              if(bar.peopleGoing.indexOf(authentication.currentUser().email) === -1){
-                bar.attending = false;
-              } else {
-                bar.attending = true;
+              bar.attending = false;
+              bar.numberOfPeople = bar.peopleGoing.length;
+              for (i = 0; i < bar.numberOfPeople; i++) {
+                if (bar.peopleGoing[i].email ===  authentication.currentUser().email) {
+                  bar.attending = true;
+                  break;
+                }
               }
             })
+          } else {
+            data.forEach(function(bar){
+              bar.numberOfPeople = bar.peopleGoing.length;
+            })
           }
-          vm.businesses = data;
+          vm.bars = data;
         })
         .error(function (data) {
           vm.message = "No spots found in this location";
@@ -49,13 +59,26 @@
       vm.formData = vm.lastSearch;
       vm.onSubmit();
     }
+    
+    vm.expandAttendees=function(bar){
+      if(bar.numberOfPeople === 0){
+        return false;
+      } else {
+        bar.clicked = !bar.clicked;
+      }
+    }
+    
 
     vm.going = function(bar){
       if(vm.isLoggedIn && bar.attending === false){
+        bar.clicked = false;
         bar.attending = true;
-        bar.peopleGoing.length += 1;
+        bar.numberOfPeople += + 1;
         
         nightlifeData.goingToLocation(bar)
+          .success(function (data) {
+            bar.peopleGoing = data.peopleGoing;
+          })
           .error(function (err) {
             vm.message= err;
           }); 
@@ -68,9 +91,10 @@
     
     vm.notGoing = function(bar){
       if(vm.isLoggedIn && bar.attending === true){
+        bar.clicked = false;
         bar.attending = false;
-        bar.peopleGoing.length -= 1;
-  
+        bar.numberOfPeople -= 1;
+        
         nightlifeData.notGoingToLocation(bar)
           .error(function (err) {
             vm.message= err;

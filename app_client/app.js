@@ -1,6 +1,6 @@
 (function () {
 
-  angular.module('nightlifeApp', ['ngRoute', 'ngSanitize']);
+  angular.module('nightlifeApp', ['ngRoute', 'ngSanitize', 'ngAnimate']);
 
   function config ($routeProvider) {
     $routeProvider

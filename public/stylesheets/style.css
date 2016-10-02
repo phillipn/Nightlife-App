@@ -9,7 +9,7 @@ a {
 .list_pics {
   display: inline-block;
   float: left;
-  top: 25px;
+  top: 30px;
   height: 100px;
   width: 100px;
   position: relative;
@@ -18,6 +18,10 @@ a {
   width: 100%;
   height: auto;
   margin-top: 20px;
+}
+.contactListHeading {
+  font-weight: bold;
+  text-decoration: underline;
 }
 .glyphicon {
   color: #e6b800;
@@ -34,7 +38,13 @@ a {
 }
 .circle > span {
   position: relative;
-  top: 25%;
+  top: 8%;
+}
+.angular-with-newlines {
+  white-space: pre-wrap;
+}
+#loadMsg{
+  margin-bottom: 25px;
 }
 #banner {
   text-align: center;
@@ -48,13 +58,55 @@ footer {
   background-color: #F8F8F8;
   border-color: #e7e7e7;
 }
+.repeated-item.ng-enter, .repeated-item.ng-move {
+  transition: all 1.5s linear;
+  opacity: 0;
+}
+
+/* ng-repeat css */
+.repeated-item.ng-enter.ng-enter-active,
+.repeated-item.ng-move.ng-move-active {
+  opacity: 1;
+}
+
+.repeated-item.ng-leave {
+  animation: 1.5s my_animation;
+}
+
+@keyframes my_animation {
+  from { opacity:1; }
+  to { opacity:0; }
+}
+
+/* ng-if css */
+.animate-if {
+  background:white;
+  border:1px solid gray;
+  border-radius: 10px;
+  padding:10px;
+}
+
+.animate-if.ng-enter, .animate-if.ng-leave {
+  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+}
+
+.animate-if.ng-enter,
+.animate-if.ng-leave.ng-leave-active {
+  opacity:0;
+}
+
+.animate-if.ng-leave,
+.animate-if.ng-enter.ng-enter-active {
+  opacity:1;
+}
+
 @media screen and (max-width: 540px){
   .image {
     top: 0px;
     float: none !important;
     width: 100% !important;
   }
-  img {
+  .list_pics {
     float: none !important;
     top: 0px;
   }

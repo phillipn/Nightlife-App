@@ -63,11 +63,17 @@ module.exports.notGoingToLoc = function(req, res) {
     if(!location){
       sendJSONresponse(res, 404, err);
     } else {
-      var index = location.peopleGoing.indexOf(req.payload.email);
-      if(index == -1){
-        sendJSONresponse(res, 404, err);
-      } else {
-        location.peopleGoing.splice(index, 1);
+      var i;
+      var spliced = false;
+      
+      for (i = 0; i < location.peopleGoing.length; i++) {
+        if (location.peopleGoing[i].email ===  req.payload.email) {
+          location.peopleGoing.splice(i, 1);
+          spliced = true;
+          break;
+        }
+      }
+      if(spliced){
         location.save(function(err, location) {
           if (err) {
             sendJSONresponse(res, 404, err);
@@ -75,6 +81,8 @@ module.exports.notGoingToLoc = function(req, res) {
             sendJSONresponse(res, 200, location);
           }
         });
+      } else {
+          sendJSONresponse(res, 404, err);
       }
     }
   })
@@ -90,7 +98,7 @@ module.exports.goingToLoc = function(req, res) {
         image_url: barInfo.image_url, 
         mobile_url: barInfo.mobile_url, 
         location: {address: barInfo.location.address, city: barInfo.location.city, state_code: barInfo.location.state_code, country_code: barInfo.location.country_code}, 
-        peopleGoing: [req.payload.email]
+        peopleGoing: [{name: req.payload.name, email: req.payload.email}]
       }, function(err, location) {
         if (err) {
           console.log(err);
@@ -100,7 +108,7 @@ module.exports.goingToLoc = function(req, res) {
         }
       });
     } else {
-      location.peopleGoing.push(req.payload.email);
+      location.peopleGoing.push({name: req.payload.name, email: req.payload.email});
       location.save(function(err, location) {
         if (err) {
           sendJSONresponse(res, 404, err);
