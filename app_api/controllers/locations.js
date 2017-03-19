@@ -18,17 +18,17 @@ var parseDb = function(businesses, callback) {
         arr.push(record);
       } else {
         arr.push({
-          name: business.name, 
+          name: business.name,
           rating: business.rating,
-          review_count: business.review_count,  
-          image_url: business.image_url, 
-          mobile_url: business.mobile_url, 
-          location:{ 
-            address: business.location.address, 
-            city: business.location.city, 
-            state_code: business.location.state_code, 
+          review_count: business.review_count,
+          image_url: business.image_url,
+          mobile_url: business.mobile_url,
+          location:{
+            address: business.location.address,
+            city: business.location.city,
+            state_code: business.location.state_code,
             country_code: business.location.country_code
-          }, 
+          },
           peopleGoing: []});
       }
       if (++lookup == businesses.length){ callback(arr); }
@@ -45,13 +45,13 @@ module.exports.locationListByCity = function(req, res) {
     token: process.env.TOKEN,
     token_secret: process.env.TOKEN_SECRET,
   });
-
+  console.log(yelp);
   yelp.search({ limit: 20, term: 'bar', location: city, sort: 2 })
     .then(function (data) {
       parseDb(data.businesses, function(arr){
         sendJSONresponse(res, 200, arr);
       })
-    }) 
+    })
     .catch(function (err) {
       sendJSONresponse(res, 400, err);
     });
@@ -65,7 +65,7 @@ module.exports.notGoingToLoc = function(req, res) {
     } else {
       var i;
       var spliced = false;
-      
+
       for (i = 0; i < location.peopleGoing.length; i++) {
         if (location.peopleGoing[i].email ===  req.payload.email) {
           location.peopleGoing.splice(i, 1);
@@ -93,11 +93,11 @@ module.exports.goingToLoc = function(req, res) {
   Loc.findOne({ name : barInfo.name }).exec(function(err, location) {
     if (!location) {
       Loc.create({
-        name: barInfo.name, 
-        rating: barInfo.rating, 
-        image_url: barInfo.image_url, 
-        mobile_url: barInfo.mobile_url, 
-        location: {address: barInfo.location.address, city: barInfo.location.city, state_code: barInfo.location.state_code, country_code: barInfo.location.country_code}, 
+        name: barInfo.name,
+        rating: barInfo.rating,
+        image_url: barInfo.image_url,
+        mobile_url: barInfo.mobile_url,
+        location: {address: barInfo.location.address, city: barInfo.location.city, state_code: barInfo.location.state_code, country_code: barInfo.location.country_code},
         peopleGoing: [{name: req.payload.name, email: req.payload.email}]
       }, function(err, location) {
         if (err) {

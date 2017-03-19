@@ -9,7 +9,7 @@
     var vm = this;
 
     vm.pageHeader = {
-      title: 'Create a new Loc8r account'
+      title: 'Create a new NightLife account'
     };
 
     vm.credentials = {
@@ -38,7 +38,7 @@
           vm.formError = err;
         })
         .then(function(){
-          $location.search('page', null); 
+          $location.search('page', null);
           $location.path(vm.returnPage);
         });
     };

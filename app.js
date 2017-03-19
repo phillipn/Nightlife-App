@@ -1,4 +1,4 @@
-require('dotenv').load();
+// require('dotenv').load();
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -9,7 +9,6 @@ var passport = require('passport');
 require('./app_api/models/db');
 require('./app_api/config/passport');
 var routesApi = require('./app_api/routes/index');
-
 var app = express();
 
 // view engine setup
@@ -34,7 +33,11 @@ app.use(function (err, req, res, next) {
   if (err.name === 'UnauthorizedError') {
     res.status(401);
     res.json({"message" : err.name + ": " + err.message});
-  } 
+  }
 });
+
+app.listen(process.env.PORT || 8080, function(){
+  console.log('listening');
+})
 
 module.exports = app;

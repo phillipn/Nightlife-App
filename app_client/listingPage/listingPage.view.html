@@ -1,4 +1,4 @@
-<div class="container"> 
+<div class="container">
   <navigation></navigation>
   <page-header content="vm.pageHeader"></page-header>
   <div class='row'>
@@ -12,40 +12,37 @@
       <div class="list-group-item repeated-item" ng-repeat="bar in vm.bars">
         <div class='row'>
           <div class='col-xs-2 image'>
-            <img class='list_pics' src="{{ bar.image_url | ifNoImage }}"> 
+            <img class='list_pics' src="{{ bar.image_url | ifNoImage }}">
           </div>
           <div class='col-xs-10 content'>
-            <h4>                                                         
+            <h4>
               <a href="{{ bar.mobile_url }}" target="_blank">{{ bar.name }}</a>
-            </h4> 
-            <div rating-stars rating="bar.rating"></div>  
+            </h4>
+            <div rating-stars rating="bar.rating"></div>
             <p> Number of Reviews: {{ bar.review_count | notNull }} </p>
-            <p> 
+            <p>
               {{ bar.location.address | formatAddress }} {{ bar.location.city }} {{ bar.location.state_code }} {{ bar.location.country_code }}
-            </p>  
+            </p>
             <button id='going' class='btn btn-success' ng-if="vm.isLoggedIn && bar.attending === false" ng-click="vm.going(bar)">
               I'm going!
             </button>
             <button id='notGoing' class='btn btn-danger' ng-if="vm.isLoggedIn && bar.attending === true" ng-click="vm.notGoing(bar)">
               Change of plans!
-            </button>  
+            </button>
             <a href="/#/login?search={{ vm.formData }}" id='loginBar' class='btn btn-success' ng-if="!vm.isLoggedIn" ng-click="vm.going(bar)">
               Log in to RSVP
-            </a>  
+            </a>
             <div class='circle btn' ng-click="vm.expandAttendees(bar)">
               <span id='attendees'> {{ bar.numberOfPeople }}</span>
             </div>
-            
+
             <div ng-if="bar.clicked" class="animate-if" ng-repeat="person in bar.peopleGoing">
               <h4 class="contactListHeading"> Hit em' up! </h4>
               {{ person | contactList }}
-            </div>              
-          </div> 
-        </div>                                                                 
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
-<footer-generic></footer-generic>
-
-
